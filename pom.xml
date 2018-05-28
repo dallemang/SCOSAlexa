@@ -1,0 +1,170 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.tellme.alexa</groupId>
+  <artifactId>tellme-columbus</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>tellme-columbus</name>
+  <url>http://maven.apache.org</url>
+
+
+
+ <properties>
+ 	<maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <jackson-core.version>2.6.7</jackson-core.version>
+    <jackson-annotations.version>2.6.7</jackson-annotations.version>
+	<jackson-databind.version>2.6.7.1</jackson-databind.version>
+	<skipTests>true</skipTests>
+	<project.basedir>D:\MS\AlexaWS\tellme-columbus</project.basedir>
+ </properties>
+
+  <dependencies>
+	  	<dependency>
+	      <groupId>com.amazon.alexa</groupId>
+	      <artifactId>alexa-skills-kit</artifactId>
+	      <version>1.8.1</version>
+	      <scope>compile</scope>  
+	    </dependency>
+	    
+	    <dependency>
+	        <groupId>com.fasterxml.jackson.core</groupId>
+	        <artifactId>jackson-core</artifactId>
+	        <version>${jackson-core.version}</version>
+	    </dependency>
+	
+	    <dependency>
+	        <groupId>com.fasterxml.jackson.core</groupId>
+	        <artifactId>jackson-databind</artifactId>
+	        <version>${jackson-databind.version}</version>
+		</dependency>
+		<dependency>
+	        <groupId>com.fasterxml.jackson.core</groupId>
+	        <artifactId>jackson-annotations</artifactId>
+	        <version>${jackson-annotations.version}</version>
+		</dependency>
+		
+	    <dependency>
+	      <groupId>log4j</groupId>
+	      <artifactId>log4j</artifactId>
+	      <version>1.2.17</version>
+	      <scope>compile</scope>
+	    </dependency>
+	    
+	    <dependency>
+	      <groupId>org.slf4j</groupId>
+	      <artifactId>slf4j-api</artifactId>
+	      <version>1.7.10</version>
+	      <scope>compile</scope>
+	    </dependency>
+	    
+	    <dependency>
+	      <groupId>org.slf4j</groupId>
+	      <artifactId>slf4j-log4j12</artifactId>
+	      <version>1.7.10</version>
+	      <scope>compile</scope>
+	    </dependency>
+	    
+	    <dependency>
+	      <groupId>org.apache.commons</groupId>
+	      <artifactId>commons-lang3</artifactId>
+	      <version>3.4</version>
+	      <scope>compile</scope>
+	    </dependency>
+	    
+	    <dependency>
+		    <groupId>com.amazonaws</groupId>
+		    <artifactId>aws-java-sdk-dynamodb</artifactId>
+		    <version>1.11.297</version>
+		    <scope>compile</scope>
+		</dependency>
+		
+	    <dependency>
+	      <groupId>junit</groupId>
+	      <artifactId>junit</artifactId>
+	      <version>3.8.1</version>
+	      <scope>test</scope>
+	    </dependency>
+
+	    <dependency>
+	    <groupId>com.amazonaws</groupId>
+	    <artifactId>aws-lambda-java-log4j2</artifactId>
+	    <version>1.0.0</version>
+	  </dependency>
+	  <dependency>
+	    <groupId>org.apache.logging.log4j</groupId>
+	    <artifactId>log4j-core</artifactId>
+	    <version>2.8.2</version>
+	  </dependency>
+	  <dependency>
+	    <groupId>org.apache.logging.log4j</groupId>
+	    <artifactId>log4j-api</artifactId>
+	    <version>2.8.2</version>
+	  </dependency>
+	  
+		<!-- https://mvnrepository.com/artifact/org.jboss.resteasy/resteasy-client -->
+		<!-- Resteasy -->
+	<dependency>
+	    <groupId>org.jboss.resteasy</groupId>
+	    <artifactId>resteasy-client</artifactId>
+	    <version>3.0.8.Final</version>
+	</dependency>
+	 
+
+	<dependency>
+    	<groupId>world.data</groupId>
+    	<artifactId>dw-jdbc</artifactId>
+    	<version>0.4.1</version>
+	</dependency>
+	
+	<dependency>
+    	<groupId>org.apache.jena</groupId>
+    	<artifactId>apache-jena-libs</artifactId>
+    	<type>pom</type>
+    	<version>3.0.0</version>
+  	</dependency>
+  	
+  	<dependency>
+      <groupId>org.apache.jena</groupId>
+      <artifactId>jena-text</artifactId>
+      <version>3.0.0</version>
+    </dependency>
+	
+  </dependencies>
+  
+   <build>
+  	<plugins>
+  		<plugin>
+  			<groupId>org.apache.maven.plugins</groupId>
+  			<artifactId>maven-shade-plugin</artifactId>
+  			<version>2.3</version>
+  			<executions>
+		      <execution>
+		        <phase>package</phase>
+		        <goals>
+		          <goal>shade</goal>
+		        </goals>
+		        <configuration>
+		          <transformers>
+		            <transformer
+		                    implementation="com.github.edwgiz.mavenShadePlugin.log4j2CacheTransformer.PluginsCacheFileTransformer">
+		            </transformer>
+		          </transformers>
+				</configuration>
+		      </execution>
+		    </executions>
+		    <dependencies>
+		      <dependency>
+		        	<groupId>com.github.edwgiz</groupId>
+		        	<artifactId>maven-shade-plugin.log4j2-cachefile-transformer</artifactId>
+		        	<version>2.8.1</version>
+		      </dependency>
+		    </dependencies>
+  		</plugin>
+  	</plugins>
+  </build>
+</project>
